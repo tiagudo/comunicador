@@ -1,31 +1,43 @@
 package br.com.tt.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Mensagem {
+
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd/MM/YYYY - HH:mm");
     private String texto;
-//    private Usuario idUsuarioOrigem;
+    private Usuario origem;
 //    private Usuario idUsuarioDestino;
     private LocalDateTime dataHoraEnvio;
 
-    public Mensagem (String novoTexto) {
+    public Mensagem (String novoTexto, Usuario usuarioQueEscreveu) {
+        if (novoTexto.length() < 5){
+            System.err.println("Mensagem não deve ser menor que 5 caracteres.");
+            System.exit(1);
+        }
+
         this.texto = novoTexto;
+        this.origem = usuarioQueEscreveu;
         dataHoraEnvio = LocalDateTime.now();
+
     }
 
-    public void setDataHoraEnvio(LocalDateTime dataHoraEnvio) {
-        this.dataHoraEnvio = dataHoraEnvio;
-    }
+//    public Usuario getOrigem() {
+//        return origem;
+//    }
+//
+//    public String getDataHoraEnvio() {
+//        return dataHoraEnvio.format(FORMATTER);
+//    }
+//
+//    public String getTexto() {
+//        return texto;
+//    }
 
-    public LocalDateTime getDataHoraEnvio() {
-        return dataHoraEnvio;
-    }
+    public String getDescricao() {
+        return String.format("Mensagem: %s\nData: %s\nAutor: %s\n\n",
+                texto, dataHoraEnvio.format(FORMATTER), origem.getNome());
 
-    public void setTexto(String texto) {
-        this.texto = texto;
-    }
-
-    public String getTexto() {
-        return texto;
     }
 }

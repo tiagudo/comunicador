@@ -5,15 +5,22 @@ public class Usuario {
     private Long id;
     private String nome;
 
-    public void setNome(String novoNome) {
+    public Usuario(String novoNome) {
+        alteraNome(novoNome);
+    }
+
+    private void alteraNome(String novoNome) {
+
         if (novoNome.length() < TAMANHO_MINIMO_NOME) {
-            System.out.println("Não foi possível alterar o nome");
+            System.err.println("Não foi possível alterar o nome");
             System.exit(1);  // so usar em CONSOLE!
-        } else
-            this.nome = novoNome;
+        }
+
+        this.nome = novoNome;
+
     }
 
     public String getNome() {
-        return this.nome;
+        return nome;
     }
 }
